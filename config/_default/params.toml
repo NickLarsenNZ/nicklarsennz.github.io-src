@@ -1,5 +1,5 @@
-logoText = "Zzo" # site navigation bar logo text.
-description = "The Zzo theme for Hugo example site." # for SEO
+logoText = "NickLarsenNZ" # site navigation bar logo text.
+description = "Just another tech blog, but with bite-sized posts." # for SEO
 custom_css = [] # custom_css = ["scss/custom.scss"] and then make file at root/assets/scss/custom.scss
 custom_js = [] # custom_js = ["js/custom.js"] and then make file at root/assets/js/custom.js
 
@@ -21,13 +21,13 @@ archivePaginate = 13 # items per page
 paginateWindow = 1 # setting it to 1 gives 7 buttons, 2 gives 9, etc. If set 1: [1 ... 4 5 6 ... 356] [1 2 3 4 5 ... 356] etc
 
 # whoami: usage - home page sidebar, single page bottom of post. all values can be empty
-myname = "zzossig"
-email = "zzossig@gmail.com"
-whoami = "Web Developer"
-useGravatar = false
-location = "Seoul, Korea"
-organization = "Hugo"
-link = "https://github.com/zzossig/hugo-theme-zzo"
+myname = "Nick Larsen"
+email = "nick@aptiv.co.nz"
+whoami = "Platform Engineer"
+useGravatar = true
+location = "Wellington, New Zealand"
+#organization = "Hugo"
+link = "https://github.com/nicklarsennz"
 
 # sidebar
 enableBio = true # home page sidebar
@@ -44,7 +44,7 @@ searchLanguages = ['en'] # lunr multilanguage search. https://github.com/MihaiVa
 showPoweredBy = true # show footer text: Powered by Hugo and Zzo theme
 showFeedLinks = true # RSS Feed 
 showSocialLinks = true # email, facebook, twitter ...
-enableLangChange = true # show button at bottom left of footer.
+enableLangChange = false # show button at bottom left of footer.
 themeOptions = ["dark", "light", "hacker", "solarized", "custom"] # select options for site color theme
 
 # service
@@ -102,19 +102,19 @@ scriptSrc = "" # "https://isso.example.com/js/embed.min.js"
 dataAttrs = "" # "data-isso='https://isso.example.com' data-isso-require-author='true'"
 
 [socialOptions] # if set, social icons will show up.
-email = "mailto:your@email.com"
-facebook = "http://example.org/"
-twitter = "http://example.org/"
-github = "https://github.com/zzossig/hugo-theme-zzo"
-stack-overflow = ""
+email = "mailto:nick@aptiv.co.nz"
+#facebook = "http://example.org/"
+twitter = "https://twitter.com/nicklarsennz/"
+github = "https://github.com/nicklarsennz"
+stack-overflow = "https://stackoverflow.com/users/8148609/nick-larsen"
 instagram = ""
 google-plus = ""
 youtube = ""
 medium = ""
 tumblr = ""
-linkedin = ""
+linkedin = "https://linkedin.com/nicklarsennz"
 pinterest = ""
-stack-exchange = ""
+#stack-exchange = "https://stackexchange.com/users/6315521/nick-larsen"
 telegram = ""
 steam = ""
 
