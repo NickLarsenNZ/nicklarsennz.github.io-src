@@ -65,13 +65,39 @@ alias jq='docker run --rm -it nicklarsennz/yq jq'
 EOF
 ```
 
-Throughout this guide, I'll focus on YAML and`yq`, but the same essentially applied to JSON and `jq`.
+Throughout this guide, I'll focus on YAML and `yq`, but the same essentially applied to JSON and `jq`.
 
 ## Extracting parts of the document
 
-> **todo**: make a sample Pod yaml with labels, annotations, multiple init-containers and multiple containers
->
-> **todo**: get all images from a [Kubernetes Pod manifest][pod-manifest]
+> **todo**: simple example walking down the tree. Modify the narrative below to build off this.
+
+Suppose you are running Apache Kafka in a Kubernetes StatefulSet, and want to check the images used in a running pod (for example, to see if a pod has taken the newly specified image).
+
+You might run `kubectl get pod local-kafka-0 -o yaml` which produces a [Pod spec like this][pod-manifest].
+
+_**Note**: In place of `kubectl` I'll use `curl` so you can copy/paste and have a go yourself._
+
+```sh
+SPEC="https://nicklarsennz.github.io/kubernetes/kafka-pod.yml"
+curl "$SPEC" | yq -r '.spec.containers[] | .image'
+```
+
+The above command resulted in:
+
+```txt
+solsson/kafka-prometheus-jmx-exporter@sha256:a23062396cd5af1acdf76512632c20ea6be76885dfc20cd9ff40fb23846557e8
+confluentinc/cp-kafka:5.0.1
+```
+
+So, we just got a list of images defined in the YAML file. The output isn't YAML, nor JSON because I supplied the `-r` flag which means print it out raw.
+
+The query `.spec.containers[] | .image` can be broken down into:
+- Return each entry (denoted by `[]`) of the list under `spec.containers`.
+- Pipe (`|`) the output for further operation.
+- Return the value of the `image` key (this is the last operation, so the results get printed out)
+
+\
+_Try it yourself, and see what happens if you remove the `| .image` from the query._
 
 ## Piping to builtin functions
 
@@ -105,4 +131,4 @@ Throughout this guide, I'll focus on YAML and`yq`, but the same essentially appl
 [yq]: https://yq.readthedocs.io/en/latest/
 [jq]: https://stedolan.github.io/jq/download/
 [bat]: https://github.com/sharkdp/bat
-[pod-manifest]: /kubernetes/pod.yml
+[pod-manifest]: /kubernetes/kafka-pod.yml
