@@ -8,7 +8,7 @@ defaultContentLanguage = "en" # Default language to use (if you setup multilingu
 defaultContentLanguageInSubdir = false # baseURL/en/, baseURL/kr/ ...
 hasCJKLanguage = false # Set `true` for Chinese/Japanese/Korean languages.
 
-summaryLength = 70
+summaryLength = 12
 
 copyright = "&copy;{year}, All Rights Reserved" # copyright symbol: $copy; current year: {year}
 timeout = 10000
