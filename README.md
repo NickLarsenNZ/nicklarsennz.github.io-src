@@ -4,3 +4,4 @@
 
 - <https://themes.gohugo.io/hugo-theme-zzo/>
 - `git submodule update --remote --merge`
+- `./deploy "commit message"`
