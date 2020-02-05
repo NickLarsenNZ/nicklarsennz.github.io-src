@@ -79,7 +79,7 @@ _**Note**: In place of `kubectl` I'll use `curl` so you can copy/paste and have 
 
 ```sh
 SPEC="https://nicklarsennz.github.io/kubernetes/kafka-pod.yml"
-curl "$SPEC" | yq -r '.spec.containers[] | .image'
+curl -s "$SPEC" | yq -r '.spec.containers[] | .image'
 ```
 
 The above command resulted in:
@@ -99,9 +99,11 @@ The query `.spec.containers[] | .image` can be broken down into:
 \
 _Try it yourself, and see what happens if you remove the `| .image` from the query._
 
-## Piping to builtin functions
+## Piping to filters
 
-> **todo**: pipe to upper case
+```sh
+curl -s "$SPEC" | yq -r '.metadata.name | ascii_upcase'
+```
 
 ## Arithmetic operations
 
