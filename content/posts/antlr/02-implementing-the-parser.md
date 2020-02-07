@@ -13,7 +13,7 @@ There are two ways to implement the parser from the generated code:
 - The Listener Pattern: _Optionally override listeners for each rule, and as the parser parses the token stream, the applicable Listener will be called._
 - The Visitor Pattern: _Optionally override the Base Visitor for each rule, and starting with the first rule, control which branch of the tre to visit next._
 
-I'll be implementing the Visitor pattern as I'll need control over when to visit children nodes later on when we implement branching (if/else). If you were writing a code translation tool, you might prefer the Lstener pattern and let ANTLR call then listeners.
+I'll be implementing the Visitor pattern as I'll need control over when to visit children nodes later on when we implement branching (if/else). If you were writing a code translation tool, you might prefer the Listener pattern and let ANTLR call then listeners.
 
 {{< notice tip >}}
 Because the Visitor pattern gives you complete control over the parse tree, you must override methods for all rules up to the root. You cannot simply override methods you are interested in.
@@ -21,15 +21,9 @@ Because the Visitor pattern gives you complete control over the parse tree, you 
 
 I'll be taking a test-driven-development approach so that I can writes tests for each unit without having to worry about implementing the the parser from the `file` entry point down to each leaf. This allows me to implement something simple like `print` then climibing my way to parsing a whole file.
 
-{{< notice tip >}}
-- IDEA code gen for antlr (right click the g4, select "Generate ANTLR Recognizer", code placed in `src/main/gen`)
-- gradle modification   
-- tests/tdd
-{{< /notice >}}
-
 ## Setup
 
-I'll quickly explain my setup, becuase it took a little while to figure out.
+I'll quickly explain my setup, because it took a little while to figure out.
 
 Firstly, my directory structure is as follows:
 
@@ -38,8 +32,8 @@ Firstly, my directory structure is as follows:
 │   ├── main/
 │   │   ├── antlr/       # ANTLR g4 files
 │   │   ├── gen/
-│   │   |   └── antlr/   # Generated ANTLR code
-│   │   └── kotlin/      # My implementation of the generated code
+│   │   |   └── antlr/   # Generated ANTLR package (Java)
+│   │   └── kotlin/      # My implementation of the parser, extending the generated code
 │   └── test/
 │       └── kotlin/      # Unit Tests
 ├── build.gradle
@@ -217,6 +211,9 @@ However, the implementation is somewhat different. First we need to check how ma
 
 ## Handle multiple statements
 
+As we work our way up to be able to parse a whole file, we need to be able to handle multiple statements.
+For the test case, I just check we can run `print` twice.
+
 ```kotlin
     @Test
     fun `multiple statements`() {
@@ -232,6 +229,8 @@ However, the implementation is somewhat different. First we need to check how ma
     }
 ```
 
+The implemention is pretty simple, we just need to join the output of each of the statements. The output of each statement comes form visiting the first child (there is only one child).
+
 ```kotlin
     override fun visitStatements(ctx: StupidLangParser.StatementsContext?): String {
         return ctx
@@ -245,6 +244,8 @@ However, the implementation is somewhat different. First we need to check how ma
 ```
 
 ## Handle a whole file of statements
+
+Handling the whole file is basically the same as handling a bunch of statements, we just call the `FileContext` context.
 
 ```kotlin
 @Test
@@ -293,6 +294,8 @@ However, the implementation is somewhat different. First we need to check how ma
     }
 ```
 
+We just need to allow for the case of an empty file (no statements), which will yeild an empty string. Otherwise, visit each statement.
+
 ```kotlin
     override fun visitFile(ctx: StupidLangParser.FileContext?): String {
         return when {
@@ -301,3 +304,10 @@ However, the implementation is somewhat different. First we need to check how ma
         }
     }
 ```
+
+## Conclusion
+
+ANTLR makes it easy to test each portion of the parser by allowing us to provide a string to parse, and choose which context to begin visiting from.
+This will become invaluable as the language grows, becuase any regression will quickly become apparent.
+
+The next post in the series will show how to extend the language. We'll add new rules to the parser grammar, and write the accompanying code.
