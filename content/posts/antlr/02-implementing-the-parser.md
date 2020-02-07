@@ -15,9 +15,9 @@ There are two ways to implement the parser from the generated code:
 
 I'll be implementing the Visitor pattern as I'll need control over when to visit children nodes later on when we implement branching (if/else). If you were writing a code translation tool, you might prefer the Listener pattern and let ANTLR call then listeners.
 
-{{< notice tip >}}
+{{<notice tip>}}
 Because the Visitor pattern gives you complete control over the parse tree, you must override methods for all rules up to the root. You cannot simply override methods you are interested in.
-{{< /notice >}}
+{{</notice>}}
 
 I'll be taking a test-driven-development approach so that I can writes tests for each unit without having to worry about implementing the the parser from the `file` entry point down to each leaf. This allows me to implement something simple like `print` then climibing my way to parsing a whole file.
 
