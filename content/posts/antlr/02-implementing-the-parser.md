@@ -2,7 +2,7 @@
 title: "2. Implementing the Parser"
 series: ["Writing a Parser for a Small Language"]
 date: 2020-01-22T15:22:22+13:00
-draft: true
+draft: false
 tags: [antlr, kotlin, parser, code, tdd]
 ---
 
