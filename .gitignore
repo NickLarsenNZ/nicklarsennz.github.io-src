@@ -1,4 +1,5 @@
 # Ignore generated files
 _gen/
+public/
 
 .DS_Store
