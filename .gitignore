@@ -2,4 +2,8 @@
 _gen/
 public/
 
+# OS cache files
 .DS_Store
+
+# Antlr specific
+.antlr/
